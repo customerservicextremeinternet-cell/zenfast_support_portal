@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENFAST CUSTOMER SERVICE - Support Portal</title>
+    <!-- Google Fonts: Poppins, Montserrat & Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --primary-red: #8B0000;
+            --crimson-red: #DC143C;
+            --accent-glow: rgba(220, 20, 60, 0.35);
+            --glass-bg: rgba(15, 12, 12, 0.75);
+            --glass-border: rgba(220, 20, 60, 0.3);
+            --text-main: #F3F3F3;
+            --text-muted: #A0A0A0;
+            --transition-speed: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Manrope', 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Ambient Background Glows */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.25) 0%, rgba(5, 5, 5, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.15) 0%, rgba(5, 5, 5, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Glassmorphism Common Class */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 15px rgba(139, 0, 0, 0.15);
+        }
+
+        /* Header Styles */
+        header {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                padding: 40px;
+            }
+        }
+
+        .brand-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .brand-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+
+        .logo-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            border: 1px solid var(--crimson-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139, 0, 0, 0.2);
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-fallback {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: var(--crimson-red);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .header-titles h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #FFFFFF 30%, #DC143C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 768px) {
+            .header-titles h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .header-titles p {
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .header-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(139, 0, 0, 0.25);
+            border: 1px solid var(--crimson-red);
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #FF6B6B;
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .header-badge {
+                margin-top: 0;
+            }
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00FF66;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00FF66;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+        }
+
+        /* Announcement Section */
+        .announcement-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.35) 0%, rgba(20, 10, 10, 0.8) 100%);
+            border: 1px solid rgba(220, 20, 60, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(139, 0, 0, 0.3);
+        }
+
+        .announcement-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #FF8080;
+        }
+
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .announcement-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid var(--crimson-red);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            transition: var(--transition-speed);
+        }
+
+        .announcement-item:hover {
+            background: rgba(220, 20, 60, 0.1);
+            transform: translateX(4px);
+        }
+
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .announcement-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #FFFFFF;
+        }
+
+        .announcement-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-important { background: #8B0000; color: #FFF; border: 1px solid #FF4D4D; }
+        .badge-new { background: #004D40; color: #64FFDA; border: 1px solid #00BFA5; }
+        .badge-maintenance { background: #E65100; color: #FFE0B2; border: 1px solid #FF9800; }
+
+        .announcement-msg {
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .announcement-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr 380px;
+            }
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 35px;
+        }
+
+        .section-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #D0D0D0;
+        }
+
+        label .required {
+            color: var(--crimson-red);
+            margin-left: 3px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: 'Manrope', 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition-speed);
+            -webkit-appearance: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--crimson-red);
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.3);
+            background: rgba(15, 10, 10, 0.8);
+        }
+
+        select option {
+            background-color: #121212;
+            color: var(--text-main);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Validation status label under phone input */
+        .phone-validation-tag {
+            display: inline-block;
+            margin-top: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .phone-validation-tag.good {
+            color: #69F0AE;
+        }
+        .phone-validation-tag.error {
+            color: #FF5252;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed rgba(220, 20, 60, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background: rgba(139, 0, 0, 0.05);
+            cursor: pointer;
+            transition: var(--transition-speed);
+        }
+
+        .file-upload-wrapper:hover {
+            background: rgba(220, 20, 60, 0.1);
+            border-color: var(--crimson-red);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-text {
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .file-upload-text span {
+            color: #FF6B6B;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--crimson-red) 100%);
+            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.4);
+            transition: var(--transition-speed);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #A30000, #E63956);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Sidebar Side (Ticket Tracking & FAQ & Info) */
+        .sidebar-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .card-widget {
+            padding: 25px;
+        }
+
+        .widget-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Ticket Tracker */
+        .tracker-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tracker-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .tracker-result.active {
+            display: block;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 0;
+        }
+
+        .faq-question {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #F0F0F0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-speed);
+        }
+
+        .faq-question:hover {
+            color: #FF6B6B;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            padding-top: 0;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 150px;
+            padding-top: 8px;
+        }
+
+        .faq-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Info & Guidelines */
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.92rem;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-muted);
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .info-list li a {
+            word-break: break-all;
+        }
+
+        .info-list strong {
+            color: #FFFFFF;
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .guidelines-box {
+            background: rgba(139, 0, 0, 0.15);
+            border: 1px solid rgba(220, 20, 60, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            color: #FFB3B3;
+            line-height: 1.5;
+        }
+
+        /* Success / Error Modal or Alert */
+        .alert-banner {
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .alert-success {
+            background: rgba(0, 128, 0, 0.25);
+            border: 1px solid #00C853;
+            color: #69F0AE;
+        }
+
+        .alert-error {
+            background: rgba(139, 0, 0, 0.35);
+            border: 1px solid #FF5252;
+            color: #FF8A80;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: var(--crimson-red);
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-speed);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #A30000;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 50px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER AND BRANDING -->
+        <header class="glass-panel fade-in">
+            <div class="brand-container">
+                <div class="logo-wrapper">
+                    <img src="ZENFAST.png" alt="ZENFAST Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="logo-fallback" style="display:none;">ZF</span>
+                </div>
+                <div class="header-titles">
+                    <h1>ZENFAST CUSTOMER SERVICE</h1>
+                    <p>We're here to help you.</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="status-dot"></span>
+                Customer Support Portal
+            </div>
+        </header>
+
+        <!-- ANNOUNCEMENT BOX -->
+        <section class="glass-panel announcement-section fade-in">
+            <div class="announcement-header">
+                <span>📢</span> IMPORTANT ANNOUNCEMENTS
+            </div>
+            <div class="announcement-list" id="announcementList">
+                <!-- Populated dynamically from JavaScript array -->
+            </div>
+        </section>
+
+        <!-- MAIN GRID: FORM + SIDEBAR -->
+        <div class="main-grid">
+            
+            <!-- CUSTOMER CONCERN SUBMISSION FORM -->
+            <main class="glass-panel form-section fade-in">
+                <h2 class="section-heading">SUBMIT YOUR CONCERN</h2>
+                <p class="section-sub">Tell us what you need help with, and our support team will review your request.</p>
+
+                <div id="formAlert" class="alert-banner"></div>
+
+                <form id="concernForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name <span class="required">*</span></label>
+                            <input type="text" id="customerName" name="customerName" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNumber">Contact Number <span class="required">*</span></label>
+                            <input type="tel" id="contactNumber" name="contactNumber" required placeholder="+63 9123456789" value="+63 ">
+                            <span id="phoneValidation" class="phone-validation-tag error">❌ Error (Incomplete: enter 10 digits after +63)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="concernCategory">Concern Category <span class="required">*</span></label>
+                            <select id="concernCategory" name="concernCategory" required>
+                                <option value="" disabled selected>Select a category...</option>
+                                <option value="Internet Connection Problem">Internet Connection Problem</option>
+                                <option value="Slow Internet">Slow/No Internet</option>
+                                <option value="Payment">Payment</option>
+                                <option value="Voucher concern">Voucher concern</option>
+                                <option value="Voucher Redemption">Voucher Redemption</option>
+                                <option value="Service Interruption">Service Interruption</option>
+                                <option value="Other Concern">Other Concern</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredContact">Preferred Contact Method <span class="required">*</span></label>
+                            <select id="preferredContact" name="preferredContact" required>
+                                <option value="" disabled selected>Select contact method...</option>
+                                <option value="Call">Call</option>
+                                <option value="SMS">SMS</option>
+                                <option value="Email">Email</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Container for Category Specific Fields / Messages -->
+                    <div id="categoryDynamicContainer" class="form-group" style="display: none;"></div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject of Concern <span class="required">*</span></label>
+                        <input type="text" id="subject" name="subject" required placeholder="Brief summary of your issue">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Detailed Description of the Problem <span class="required">*</span></label>
+                        <textarea id="description" name="description" required placeholder="Please describe what happened, when it started, and any troubleshooting steps you've already tried..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attachment">Optional Screenshot or Supporting Attachment</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="attachment" name="attachment" accept="image/*,.pdf">
+                            <div class="file-upload-text" id="fileUploadText">
+                                Drag & drop files here or <span>browse device</span> (Max 5MB)
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn">
+                        <span>Submit Concern</span>
+                    </button>
+                </form>
+            </main>
+
+            <!-- SIDEBAR STACK -->
+            <div class="sidebar-stack">
+                
+                <!-- TICKET TRACKER -->
+                <div class="glass-panel card-widget fade-in">
+                    <div class="widget-title">
+                        <span>🔍</span> Track Your Ticket
+                    </div>
+                    <p style="color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-size: 0.88rem; margin-bottom: 12px;">
+                        Enter your ticket number to check the current status of your support request.
+                    </p>
+                    <div class="tracker-input-group">
+                        <input type="text" id="trackTicketInput" placeholder="e.g., ZF-2026-000001">
+                        <button type="button" id="trackBtn" class="btn" style="width: auto; padding: 12px 18px;">Track</button>
+                    </div>
+                    <div id="trackerResult" class="tracker-result"></div>
+                </div>
+
+                <!-- FREQUENTLY ASKED QUESTIONS -->
+                <div class="glass-panel card-widget fade-in">
+                    <div class="widget-title">
+                        <span>❓</span> Frequently Asked Questions
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">Why is my internet connection slow? <span class="faq-arrow">▼</span></div>
+                            <div class="faq-answer">Slow internet connections may be caused by heavy network traffic, high network usage, or issues with the Internet Service Provider (ISP).</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">What should I do if I have no internet? <span class="faq-arrow">▼</span></div>
+                            <div class="faq-answer">Please contact the official Zenfast Voucher Seller in your area to determine the cause of the internet outage.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">How can I report a payment? <span class="faq-arrow">▼</span></div>
+                            <div class="faq-answer">Select <b>“Payment”</b> in the form, attach a screenshot of your payment receipt, provide your contact information, and clearly describe your concern.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">How can I follow up on my concern? <span class="faq-arrow">▼</span></div>
+                            <div class="faq-answer">Use the <b>Ticket Tracker</b> widget above and enter your unique ticket number to check the status of your concern. Once your concern has been resolved, we will notify you immediately through your preferred contact method.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">How do I contact customer service? <span class="faq-arrow">▼</span></div>
+                            <div class="faq-answer">You can submit a ticket right here on our portal, or check our contact information card below for direct assistance hours.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACT INFORMATION -->
+                <div class="glass-panel card-widget fade-in">
+                    <div class="widget-title">
+                        <span>📞</span> Contact Information
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>Facebook:</strong> <a href="https://www.facebook.com/share/1G5q5hvrhi/" target="_blank" rel="noopener noreferrer" id="infoFb" style="color: #FF6B6B; text-decoration: none;">Zenfast Customer Service</a></li>
+                        <li><strong>Email:</strong> <a href="mailto:zenfast.customerservice@gmail.com" id="infoEmail" style="color: #FF6B6B; text-decoration: none;">zenfast.customerservice@gmail.com</a></li>
+                        <li><strong>Hours:</strong> <span id="infoHours">Mon - Fri: 10:00 AM - 3:00 PM</span></li>
+                    </ul>
+                </div>
+
+                <!-- SUPPORT GUIDELINES -->
+                <div class="glass-panel card-widget fade-in">
+                    <div class="widget-title">
+                        <span>🛡️</span> Support Guidelines
+                    </div>
+                    <div class="guidelines-box">
+                        <strong>Security Reminder:</strong> Please provide accurate details when submitting your concern. <strong>Never</strong> share your passwords, OTPs (One-Time Passwords), PINs, or sensitive banking credentials with anyone, including our support agents.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button type="button" id="backToTop" class="back-to-top" title="Back to top">▲</button>
+
+    <!-- FOOTER -->
+    <footer>
+        &copy; 2026 ZENFAST CUSTOMER SERVICE. All rights reserved.
+    </footer>
+
+    <script>
+        /* ==========================================
+           ANNOUNCEMENTS DATA ARRAY
+           Easily add, edit, or remove announcements here.
+           ========================================== */
+        const announcementsData = [
+            {
+                title: "Welcome to ZENFAST Customer Service!",
+                message: "Please check the latest announcements before submitting your concern. Provide accurate information so our support team can assist you properly.",
+                date: "October 01, 2026",
+                badge: "IMPORTANT",
+                badgeClass: "badge-important"
+            },
+            {
+                title: "VOUCHER REDEMPTION NOTICE",
+                message: "You may claim voucher redemption if you were affected by the Globe outage. However, please note that <b>30-day vouchers will no longer be provided</b> once you apply.",
+                date: "October 22, 2026",
+                badge: "NEW",
+                badgeClass: "badge-new"
+            }
+        ];
+
+        function renderAnnouncements() {
+            const listEl = document.getElementById('announcementList');
+            listEl.innerHTML = announcementsData.map(ann => `
+                <div class="announcement-item">
+                    <div class="announcement-meta">
+                        <span class="announcement-title">${ann.title}</span>
+                        <span class="announcement-badge ${ann.badgeClass}">${ann.badge}</span>
+                    </div>
+                    <div class="announcement-msg">${ann.message}</div>
+                    <span class="announcement-date">${ann.date}</span>
+                </div>
+            `).join('');
+        }
+
+        /* FAQ Accordion */
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        /* Contact Number +63 Formatting & Validation */
+        const contactInput = document.getElementById('contactNumber');
+        const phoneValidationTag = document.getElementById('phoneValidation');
+
+        function validatePhone() {
+            let val = contactInput.value;
+
+            // Ensure starts with +63
+            if (!val.startsWith('+63')) {
+                val = '+63 ' + val.replace(/^\+?63\s?/, '').replace(/\D/g, '');
+            }
+
+            // Extract only numbers after +63
+            const rawDigits = val.substring(3).replace(/\D/g, '');
+            const truncatedDigits = rawDigits.substring(0, 10); // cap at 10 digits
+
+            contactInput.value = '+63 ' + truncatedDigits;
+
+            if (truncatedDigits.length === 10) {
+                phoneValidationTag.textContent = '✅ Good';
+                phoneValidationTag.className = 'phone-validation-tag good';
+                return true;
+            } else {
+                phoneValidationTag.textContent = `❌ Error (Incomplete: ${truncatedDigits.length}/10 digits)`;
+                phoneValidationTag.className = 'phone-validation-tag error';
+                return false;
+            }
+        }
+
+        contactInput.addEventListener('input', validatePhone);
+        contactInput.addEventListener('focus', () => {
+            if (!contactInput.value.trim()) {
+                contactInput.value = '+63 ';
+            }
+            validatePhone();
+        });
+
+        /* Dynamic Category Fields (Payment Message & Voucher Username/Password Inputs) */
+        const concernCategorySelect = document.getElementById('concernCategory');
+        const categoryDynamicContainer = document.getElementById('categoryDynamicContainer');
+
+        concernCategorySelect.addEventListener('change', () => {
+            const val = concernCategorySelect.value;
+            categoryDynamicContainer.innerHTML = '';
+
+            if (val === 'Payment') {
+                categoryDynamicContainer.style.display = 'block';
+                categoryDynamicContainer.innerHTML = `
+                    <div style="padding: 12px 16px; background: rgba(220, 20, 60, 0.15); border: 1px solid var(--crimson-red); border-radius: 10px; color: #FFB3B3; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;">
+                        💡 <strong>Note:</strong> Attach proof of payment if needed.
+                    </div>
+                `;
+            } else if (val === 'Voucher concern' || val === 'Voucher Redemption') {
+                categoryDynamicContainer.style.display = 'block';
+                categoryDynamicContainer.innerHTML = `
+                    <div class="form-row" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="voucherUsername">Username <span class="required">*</span></label>
+                            <input type="text" id="voucherUsername" name="voucherUsername" placeholder="Enter your voucher username">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="voucherPassword">Password <span class="required">*</span></label>
+                            <input type="password" id="voucherPassword" name="voucherPassword" placeholder="Enter your voucher password">
+                        </div>
+                    </div>
+                `;
+            } else {
+                categoryDynamicContainer.style.display = 'none';
+            }
+        });
+
+        /* File Upload Preview */
+        const fileInput = document.getElementById('attachment');
+        const fileUploadText = document.getElementById('fileUploadText');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                fileUploadText.innerHTML = `Selected file: <strong style="color: #69F0AE;">${fileName}</strong>`;
+            } else {
+                fileUploadText.innerHTML = `Drag & drop files here or <span>browse device</span> (Max 5MB)`;
+            }
+        });
+
+        /* ==========================================
+           GOOGLE APPS SCRIPT INTEGRATION
+           ========================================== */
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv17LXNBnn-JtmwVmKsBRDQf-KutLaK86-gbABJdZxMZIMzgxzVGXgYGlo-qTQwBk_/exec";
+
+        const concernForm = document.getElementById('concernForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formAlert = document.getElementById('formAlert');
+
+        concernForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formAlert.style.display = 'none';
+            formAlert.className = 'alert-banner';
+
+            const isPhoneValid = validatePhone();
+            const customerName = document.getElementById('customerName').value.trim();
+            const contactNumber = document.getElementById('contactNumber').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const concernCategory = document.getElementById('concernCategory').value;
+            const preferredContact = document.getElementById('preferredContact').value;
+            const subject = document.getElementById('subject').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            let voucherUsername = '';
+            let voucherPassword = '';
+
+            if (concernCategory === 'Voucher concern' || concernCategory === 'Voucher Redemption') {
+                voucherUsername = document.getElementById('voucherUsername') ? document.getElementById('voucherUsername').value.trim() : '';
+                voucherPassword = document.getElementById('voucherPassword') ? document.getElementById('voucherPassword').value.trim() : '';
+
+                if (!voucherUsername || !voucherPassword) {
+                    showAlert('Please enter both Username and Password for voucher concerns/redemption.', 'error');
+                    return;
+                }
+            }
+
+            if (!customerName || !contactNumber || !email || !concernCategory || !preferredContact || !subject || !description) {
+                showAlert('Please fill in all required fields marked with *.', 'error');
+                return;
+            }
+
+            if (!isPhoneValid) {
+                showAlert('Please enter a valid contact number starting with +63 followed by 10 digits.', 'error');
+                contactInput.focus();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<span class="spinner"></span> Submitting...`;
+
+            let fileData = null;
+            let fileName = null;
+            let fileType = null;
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    showAlert('File size exceeds 5MB limit. Please choose a smaller file.', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    return;
+                }
+                try {
+                    const base64String = await fileToBase64(file);
+                    fileData = base64String.split(',')[1];
+                    fileName = file.name;
+                    fileType = file.type;
+                } catch (err) {
+                    showAlert('Failed to process attachment file.', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    return;
+                }
+            }
+
+            const payload = {
+                customerName,
+                contactNumber,
+                email,
+                concernCategory,
+                preferredContact,
+                subject,
+                description,
+                voucherUsername,
+                voucherPassword,
+                fileName,
+                fileType,
+                fileData
+            };
+
+            // MOCK RESPONSE FOR LOCAL TESTING
+            if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
+                setTimeout(() => {
+                    const mockTicket = "ZF-2026-" + Math.floor(100000 + Math.random() * 900000);
+                    showAlert(`✅ Concern submitted successfully!<br><strong>TICKET NUMBER: ${mockTicket}</strong><br>Please save this number for future reference.`, 'success');
+                    concernForm.reset();
+                    contactInput.value = '+63 ';
+                    validatePhone();
+                    categoryDynamicContainer.style.display = 'none';
+                    categoryDynamicContainer.innerHTML = '';
+                    fileUploadText.innerHTML = `Drag & drop files here or <span>browse device</span> (Max 5MB)`;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 1200);
+                return;
+            }
+
+            // REAL SERVER SUBMISSION TO GOOGLE APPS SCRIPT
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(`✅ Concern submitted successfully!<br><strong>TICKET NUMBER: ${result.ticketNumber}</strong><br>Please save this reference number for future tracking.`, 'success');
+                    concernForm.reset();
+                    contactInput.value = '+63 ';
+                    validatePhone();
+                    categoryDynamicContainer.style.display = 'none';
+                    categoryDynamicContainer.innerHTML = '';
+                    fileUploadText.innerHTML = `Drag & drop files here or <span>browse device</span> (Max 5MB)`;
+                } else {
+                    showAlert(`Error submitting request: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                showAlert('An error occurred while submitting your concern. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function showAlert(message, type) {
+            formAlert.innerHTML = message;
+            formAlert.className = `alert-banner alert-${type}`;
+            formAlert.style.display = 'block';
+        }
+
+        /* Ticket Tracking Functionality */
+        const trackBtn = document.getElementById('trackBtn');
+        const trackTicketInput = document.getElementById('trackTicketInput');
+        const trackerResult = document.getElementById('trackerResult');
+
+        trackBtn.addEventListener('click', async () => {
+            const ticketNo = trackTicketInput.value.trim().toUpperCase();
+            
+            if (!ticketNo) {
+                trackerResult.innerHTML = `<span style="color: #FF8A80;">Please enter a valid ticket number.</span>`;
+                trackerResult.classList.add('active');
+                return;
+            }
+
+            trackerResult.innerHTML = `<span class="spinner" style="width: 15px; height: 15px; vertical-align: middle; margin-right: 8px;"></span> Checking status...`;
+            trackerResult.classList.add('active');
+
+            if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
+                setTimeout(() => {
+                    trackerResult.innerHTML = `
+                        <strong>Ticket:</strong> ${ticketNo}<br>
+                        <strong>Status:</strong> <span style="color: #FFB3B3; font-weight:700;">Pending Review</span><br>
+                        <strong>Date:</strong> October 22, 2026<br>
+                        <strong>Category:</strong> Technical Support
+                    `;
+                }, 800);
+                return;
+            }
+
+            try {
+                const requestUrl = `${GOOGLE_SCRIPT_URL}?action=track&ticket=${encodeURIComponent(ticketNo)}`;
+                
+                const response = await fetch(requestUrl, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    trackerResult.innerHTML = `
+                        <strong>Ticket:</strong> ${data.ticketNumber}<br>
+                        <strong>Status:</strong> <span style="color: #69F0AE; font-weight:700;">${data.status}</span><br>
+                        <strong>Category:</strong> ${data.category}<br>
+                        <strong>Date Submitted:</strong> ${data.date}
+                    `;
+                } else {
+                    trackerResult.innerHTML = `<span style="color: #FF8A80;">Ticket not found. Please check your ticket number.</span>`;
+                }
+            } catch (err) {
+                console.error("Tracking Error:", err);
+                trackerResult.innerHTML = `<span style="color: #FF8A80;">Unable to connect to tracking server. Please check your Web App URL deployment settings.</span>`;
+            }
+        });
+
+        /* Back to Top */
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
+        });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAnnouncements();
+            validatePhone();
+        });
+    </script>
+</body>
+</html>
