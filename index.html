@@ -1201,29 +1201,29 @@
             }
 
             try {
-                const requestUrl = `${GOOGLE_SCRIPT_URL}?action=track&ticket=${encodeURIComponent(ticketNo)}`;
-                
-                const response = await fetch(requestUrl, {
-                    method: 'GET',
-                    redirect: 'follow'
-                });
+    const requestUrl = `${GOOGLE_SCRIPT_URL}?action=track&ticket=${encodeURIComponent(ticketNo)}`;
+    
+    const response = await fetch(requestUrl, {
+        method: 'GET',
+        redirect: 'follow'
+    });
 
-                const data = await response.json();
+    const data = await response.json();
 
-                if (data.success) {
-                    trackerResult.innerHTML = `
-                        <strong>Ticket:</strong> ${data.ticketNumber}<br>
-                        <strong>Status:</strong> <span style="color: #69F0AE; font-weight:700;">${data.status}</span><br>
-                        <strong>Category:</strong> ${data.category}<br>
-                        <strong>Date Submitted:</strong> ${data.date}
-                    `;
-                } else {
-                    trackerResult.innerHTML = `<span style="color: #FF8A80;">Ticket not found. Please check your ticket number.</span>`;
-                }
-            } catch (err) {
-                console.error("Tracking Error:", err);
-                trackerResult.innerHTML = `<span style="color: #FF8A80;">Unable to connect to tracking server. Please check your Web App URL deployment settings.</span>`;
-            }
+    if (data.success) {
+        trackerResult.innerHTML = `
+            <strong>Ticket:</strong> ${data.ticketNumber}<br>
+            <strong>Status:</strong> <span style="color: #69F0AE; font-weight:700;">${data.status}</span><br>
+            <strong>Category:</strong> ${data.category}<br>
+            <strong>Date Submitted:</strong> ${data.date}
+        `;
+    } else {
+        trackerResult.innerHTML = `<span style="color: #FF8A80;">Ticket not found. Please check your ticket number.</span>`;
+    }
+} catch (err) {
+    console.error("Tracking Error:", err);
+    trackerResult.innerHTML = `<span style="color: #FF8A80;">Unable to connect to tracking server. Please check your Web App URL deployment settings.</span>`;
+}
         });
 
         /* Back to Top */
